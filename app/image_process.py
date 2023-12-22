@@ -72,7 +72,7 @@ class ProcessFlowers:
         
     def normalize(self):
         # rescale:
-        normalization_layer = tf.keras.layers.Rescaling(1./255)
+        normalization_layer = tf.keras.layers.Rescaling(1./255) # normalize
         normalized_ds = self.__training_dataset.map(lambda x, y: (normalization_layer(x), y))
         image_batch, labels_batch = next(iter(normalized_ds))
         first_image = image_batch[0]
@@ -86,10 +86,12 @@ class ProcessFlowers:
         val_ds = self.__validation_dataset.cache().prefetch(buffer_size=AUTOTUNE)
         
         num_classes = 5
+        layer2 = tf.keras.layers.Conv2D(32, 3, activation='relu')
+        print(layer2)
 
         model = tf.keras.Sequential([
             tf.keras.layers.Rescaling(1./255),
-            tf.keras.layers.Conv2D(32, 3, activation='relu'),
+            layer2,
             tf.keras.layers.MaxPooling2D(),
             tf.keras.layers.Conv2D(32, 3, activation='relu'),
             tf.keras.layers.MaxPooling2D(),
