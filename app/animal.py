@@ -16,13 +16,13 @@ print(x_train.shape, y_train.shape)
 
 x_train, x_test = x_train / 255, x_test / 255
 
-def display_images(quantity):
+def display(quantity):
     for i in range(quantity):
         plt.subplot(2, 3, i+1)
         plt.imshow(x_train[i], cmap='gray')
     plt.show()
     
-# display_images(6)
+# display(6)
 
 def create_model():
     model = keras.models.Sequential([
